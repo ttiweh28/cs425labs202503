@@ -27,6 +27,8 @@ public class MyStudentRecordsMgmtApp {
 
         printListOfStudents(students);
 
+        printListOfStudents(students);
+
 
         List<Student> platinumAlumni = getListOfPlatinumAlumniStudents(students);
         System.out.println("\nPlatinum Alumni Students (Sorted by Date of Admission - Descending):");
