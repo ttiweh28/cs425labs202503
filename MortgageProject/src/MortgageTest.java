@@ -1,7 +1,5 @@
 import static org.junit.Assert.*;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,28 +14,41 @@ public class MortgageTest {
     }
 
     @Test
-    public void test1() {
-        double result = mc.computeMaxMortgage(1967, 5, 2, 3000, false, 0, "Architect");
-        assertEquals(180000, result, 0.001);
+    public void computeCorrectMortgageForArchitect() {
+        int birthYear = 1967;
+        int experienceYears = 5;
+        int dependents = 2;
+        double salary = 3000;
+        boolean hasLoan = false;
+        double loanAmount = 0;
+        String profession = "Architect";
+
+        double result = mc.computeMaxMortgage(birthYear, experienceYears, dependents, salary, hasLoan, loanAmount, profession);
+        assertEquals("Expected mortgage calculation for Architect", 180000, result, 0.001);
     }
 
     @Test
-    public void test2() {
+    public void shouldReturnZeroForUnderageApplicant() {
         // Ensuring age < 18
-        double result = mc.computeMaxMortgage(2010, 5, 2, 3000, false, 0, "Architect");
-        assertEquals(0, result, 0.001);
+        int birthYear = 2010;
+        double result = mc.computeMaxMortgage(birthYear, 5, 2, 3000, false, 0, "Architect");
+        assertEquals("Expected 0 mortgage for underage applicant", 0, result, 0.001);
     }
 
     @Test
-    public void test3() {
+    public void shouldCalculateMortgageForDeveloper() {
         double result = mc.computeMaxMortgage(1977, 12, 2, 4000, true, 2000, "Developer");
-        assertEquals(220000, result, 0.001); // Income is 5880, falls in the 5000+ range.
+        assertEquals("Expected mortgage for Developer with 4000 salary and loan", 220000, result, 0.001);
     }
 
     @Test
-    public void test4() {
+//    public void test4() {
+//        double result = mc.computeMaxMortgage(1954, 5, 12, 5500, false, 0, "Professor");
+//        assertEquals(280000, result, 0.001);
+//    }
+    public void shouldCalculateMortgageForProfessor() {
         double result = mc.computeMaxMortgage(1954, 5, 12, 5500, false, 0, "Professor");
-        assertEquals(280000, result, 0.001);
+        assertEquals("Expected mortgage for Professor with 5500 salary", 280000, result, 0.001);
     }
 }
 
